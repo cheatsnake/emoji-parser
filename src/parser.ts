@@ -1,18 +1,19 @@
-import { parse } from "node-html-parser";
 import fetch from "node-fetch";
+import { parse } from "node-html-parser";
 
-async function getHTML(url: string): Promise<string | null> {
-    const result = await fetch(url).then(function (res) {
-        return res.text();
-    });
+const pageUrl = "https://x-math.herokuapp.com";
+
+const html = fetchHTML(pageUrl);
+// const dom = parse(html);
+
+async function fetchHTML(url: string) {
+    const result = await fetch(url)
+        .then((res) => res.text())
+        .then((text) => {
+            return text;
+        });
+
     return result;
 }
-
-const html: Promise<string | null> =
-    getHTML("https://x-math.herokuapp.com/") || "none";
-
-// const root = parse(String(html));
-
-// console.log(root.querySelector(".body__title"));
 
 console.log(html);
