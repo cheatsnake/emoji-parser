@@ -1,3 +1,6 @@
+import emojiDataValidator from "./helpers/emoji-data-validator";
+import parseEmojiData from "./helpers/html-parser";
+
 enum EmojiCategories {
     Smileys_People = "smileys_and_people.cfm",
     Animals_Nature = "animals_and_nature.cfm",
@@ -10,7 +13,13 @@ enum EmojiCategories {
 }
 
 class Parser {
-    static getEmojiByCategory(category: string) {}
+    static async getEmojiByCategory(category: string) {
+        const emojiData = await parseEmojiData(category);
+        const emoji = emojiDataValidator(emojiData, category);
+        console.log(emoji);
+    }
 
     static getAllEmoji() {}
 }
+
+Parser.getEmojiByCategory(EmojiCategories.Smileys_People);
