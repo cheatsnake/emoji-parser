@@ -4,7 +4,9 @@ import cheerio from "cheerio";
 const BASE_URL: string =
     "https://www.quackit.com/character_sets/emoji/emoji_v3.0/emoji_icons_";
 
-export default async function parseHTML(category: string): Promise<string[][]> {
+export default async function parseEmojiData(
+    category: string
+): Promise<string[][]> {
     try {
         const data = await axios.get(`${BASE_URL}${category}`);
         const html = await data.data;
