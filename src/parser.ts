@@ -1,5 +1,6 @@
-import emojiDataValidator from "./helpers/emoji-data-validator";
+import { emojiDataValidator } from "./helpers/emoji-data-validator";
 import parseEmojiData from "./helpers/html-parser";
+import { jsonSaver, clearData } from "./helpers/json-saver";
 
 enum EmojiCategories {
     Smileys_People = "smileys_and_people.cfm",
@@ -16,10 +17,16 @@ class Parser {
     static async getEmojiByCategory(category: string) {
         const emojiData = await parseEmojiData(category);
         const emoji = emojiDataValidator(emojiData, category);
-        console.log(emoji);
+        jsonSaver(emoji, category.slice(0, -4));
     }
-
-    static getAllEmoji() {}
+    static async getAllEmoji() {
+        for (let item in EmojiCategories) {
+            setTimeout(() => null, 3000);
+            await this.getEmojiByCategory(item);
+        }
+    }
 }
 
-Parser.getEmojiByCategory(EmojiCategories.Smileys_People);
+//Start parsing
+// clearData();
+Parser.getEmojiByCategory(EmojiCategories.Food_Drink);
