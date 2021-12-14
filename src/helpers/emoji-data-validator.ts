@@ -1,4 +1,4 @@
-interface IEmoji {
+export interface IEmoji {
     category: string;
     group: string;
     name: string;
@@ -6,10 +6,11 @@ interface IEmoji {
     unicode: string[];
 }
 
-export default function emojiDataValidator(data: string[][], category: string) {
+export function emojiDataValidator(data: string[][], category: string) {
     const result: IEmoji[] = [];
     data.forEach((el) => {
-        const group: string = groupValidator(el[0]);
+        const group: string =
+            groupValidator(el[0]) || categoryValidator(category);
 
         for (let i = 1; i < el.length; i++) {
             const params = new URLSearchParams(el[i]);
@@ -60,11 +61,13 @@ function unicodeValidator(code: string): string[] {
 function categoryValidator(category: string): string {
     let result = category.replace(".cfm", "");
     if (result.includes("_")) result = result.replace(/_/g, " ");
+    if (result.includes("-")) result = result.replace(/-/g, " ");
     return result;
 }
 
 function groupValidator(group: string): string {
     let result = group;
     if (result.includes("-")) result = result.replace(/-/g, " ");
+    if (result.includes("_")) result = result.replace(/_/g, " ");
     return result;
 }
