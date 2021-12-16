@@ -1,10 +1,4 @@
-export interface IEmoji {
-    category: string;
-    group: string;
-    name: string;
-    htmlCode: string[];
-    unicode: string[];
-}
+import { IEmoji } from "../types/emoji";
 
 export function emojiDataValidator(data: string[][], category: string) {
     const result: IEmoji[] = [];
