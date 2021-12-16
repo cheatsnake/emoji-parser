@@ -1,49 +1,47 @@
-import { IEmoji } from "./emoji-data-validator";
-
-const fs = require("fs");
+import fs from "fs";
+import { IEmoji } from "../types/emoji";
 
 export function jsonSaver(data: IEmoji[], category: string) {
-    const groups: string[] = [];
-
-    fs.mkdir(`data/${category}`, { recursive: true }, (err: Error) => {
-        if (err) throw err;
-        console.log(`Folder ${category} created.`);
-    });
-
-    data.forEach((el, i) => {
-        if (!groups.includes(el.group)) groups.push(el.group);
-
-        fs.appendFileSync(
-            `data/${category}/${el.group.replace(/\s/g, "_") || category}.json`,
-            `"${i}":${JSON.stringify(el)},`,
-            (err: Error) => {
-                if (err) throw err;
-            }
-        );
-    });
-
-    groups.forEach((group) => {
-        const jsonString = fs
-            .readFileSync(`data/${category}/${group}.json`, (err: Error) => {
-                if (err) throw err;
-            })
-            .toString()
-            .slice(0, -1);
-
-        fs.writeFileSync(
-            `data/${category}/${group}.json`,
-            `{${jsonString}}`,
-            (err: Error) => {
-                if (err) throw err;
-            }
-        );
-    });
-}
-
-export function clearData() {
     try {
-        fs.rmdirSync("data");
-    } catch (e) {
-        console.log(e);
+        const groups: string[] = [];
+
+        fs.mkdir(`data/${category}`, { recursive: true }, (err: Error) => {
+            if (err) throw err;
+            console.log(`Folder ${category} created.`);
+        });
+
+        data.forEach((el, i) => {
+            const jsonFileName: string =
+                el.group.replace(/\s/g, "_") || category;
+
+            if (!groups.includes(jsonFileName)) groups.push(jsonFileName);
+
+            fs.appendFileSync(
+                `data/${category}/${jsonFileName}.json`,
+                `"${i}":${JSON.stringify(el)},`
+            );
+        });
+
+        groups.forEach((group) => {
+            const jsonString = fs
+                .readFileSync(`data/${category}/${group}.json`)
+                .toString()
+                .slice(0, -1);
+
+            fs.writeFileSync(
+                `data/${category}/${group}.json`,
+                `{${jsonString}}`
+            );
+        });
+    } catch (error) {
+        console.log(error);
     }
 }
+
+// export function clearData() {
+//     try {
+//         fs.unlink(`data`, (err) => console.log(err));
+//     } catch (error) {
+//         console.log(error);
+//     }
+// }
