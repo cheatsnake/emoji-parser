@@ -15,12 +15,12 @@ export default async function parseEmojiData(
         $("ul.list-unstyled.charset-ref")
             .children()
             .each((i, elem) => {
-                emojiData[i - 1] = [$(elem).find("h2").text()];
+                emojiData[i] = [$(elem).find("h2").text()];
                 $(elem)
                     .find("ul")
                     .children()
                     .each((i2, elem2) => {
-                        emojiData[i - 1].push($(elem2).children().attr("href"));
+                        emojiData[i].push($(elem2).children().attr("href"));
                     });
             });
         return emojiData;
