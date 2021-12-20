@@ -4,21 +4,27 @@
 
 ---
 
-This parser was created specifically to collect data for my [REST API service](https://github.com/cheatsnake/rest-emoji).
+This parser was created specifically to collect data for my [REST API service](https://github.com/cheatsnake/emojihub).
 But anyway, this repository can be useful as an example of parsing data from static html pages.
 
 ---
 
 ## ⚡ Available scripts
+
 Running the parser without compilation
+
 ```
 npm run dev
 ```
+
 Сompiling the application
+
 ```
 npm run build
 ```
+
 Running a compiled application
+
 ```
 npm start
 ```
