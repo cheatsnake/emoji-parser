@@ -27,5 +27,4 @@ class Parser {
 }
 
 //Start parsing
-// Parser.getEmojiByCategory(EmojiCategories.Activity);
 Parser.getAllEmoji();
