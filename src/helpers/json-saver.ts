@@ -37,11 +37,3 @@ export function jsonSaver(data: IEmoji[], category: string) {
         console.log(error);
     }
 }
-
-// export function clearData() {
-//     try {
-//         fs.unlink(`data`, (err) => console.log(err));
-//     } catch (error) {
-//         console.log(error);
-//     }
-// }
