@@ -4,8 +4,8 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "start": "node dist/Parser.js",
-        "dev": "ts-node src/Parser.ts",
+        "start": "node dist/parser.js",
+        "dev": "ts-node src/parser.ts",
         "build": "tsc -p ."
     },
     "keywords": [],
